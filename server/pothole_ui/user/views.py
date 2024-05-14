@@ -37,6 +37,18 @@ class_set = {
         "MediumRutting": 0,
 }
 
+class_area = {
+     "HighEdgeCracking": 0,
+        "HighPothole": 0,
+        "HighRavelling": 0,
+        "LowEdgeCracking": 0,
+        "LowPothole": 0,
+        "LowRavelling": 0,
+        "MediumEdgeCracking": 0,
+        "MediumRavelling": 0,
+        "MediumRutting": 0,
+}
+
 
 
 
@@ -95,7 +107,7 @@ def detect_pothole(request):
                         detected.save()
 
                         # ! Generate Report
-                        generateReport(classNames[cls])
+                        generateReport(classNames[cls], x1, y1)
 
                         # object details
                         org = [x1, y1]
@@ -110,11 +122,15 @@ def detect_pothole(request):
                         print(output_path)
                         cv2.imwrite(output_path, cv2_image)                  
                     list = []
-                    list.append(class_set)         
+                    list.append(class_set)
+                    class_area_list = []
+                    class_area_list.append(class_area)  
+                    print(list)    
             return JsonResponse({
                 "status": "true",
                 'detected': 'true',
-                'report': list
+                'report': list,
+                'area': class_area_list
             })    
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON data'}, status=400)
@@ -143,30 +159,40 @@ def generatedImages(request):
 
 
 
-def generateReport(class_name):
+def generateReport(class_name, xmin, ymin):
+    print(class_name)
     if class_name == "HighEdgeCracking":
         class_set["HighEdgeCracking"] = class_set["HighEdgeCracking"] + 1
+        class_area["HighEdgeCracking"] = class_set["HighEdgeCracking"] + (xmin * ymin)
         
     elif class_name == "HighPothole":
         class_set["HighPothole"] = class_set["HighPothole"] + 1
+        class_area["HighPothole"] = class_set["HighPothole"] + (xmin * ymin)
         
     elif class_name == "HighRavelling":
         class_set["HighRavelling"] = class_set["HighRavelling"] + 1
+        class_area["HighRavelling"] = class_set["HighRavelling"] + (xmin * ymin)
         
     elif class_name == "LowEdgeCracking":
         class_set["LowEdgeCracking"] = class_set["LowEdgeCracking"] + 1
+        class_area["LowEdgeCracking"] = class_set["LowEdgeCracking"] + (xmin * ymin)
         
     elif class_name == "LowPothole":
         class_set["LowPothole"] = class_set["LowPothole"] + 1
+        class_area["LowPothole"] = class_set["LowPothole"] + (xmin * ymin)
         
     elif class_name == "LowRavelling":
         class_set["LowRavelling"] = class_set["LowRavelling"] + 1
+        class_area["LowRavelling"] = class_set["LowRavelling"] + (xmin * ymin)
         
-    elif class_name == "MediumEdgeCracking":
+    elif class_name == "MediumEdge Cracking":
         class_set["MediumEdgeCracking"] = class_set["MediumEdgeCracking"] + 1
+        class_area["MediumEdgeCracking"] = class_set["MediumEdgeCracking"] + (xmin * ymin)
         
     elif class_name == "MediumRavelling":
         class_set["MediumRavelling"] = class_set["MediumRavelling"] + 1
+        class_area["MediumRavelling"] = class_set["MediumRavelling"] + (xmin * ymin)
         
     elif class_name == "MediumRutting":
         class_set["MediumRutting"] = class_set["MediumRutting"] + 1
+        class_area["MediumRutting"] = class_set["MediumRutting"] + (xmin * ymin)
