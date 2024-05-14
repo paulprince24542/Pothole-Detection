@@ -3,7 +3,7 @@ echo Starting Django development server...
 echo.
 
 REM Navigate to the directory of your Django project
-cd /d "D:\Pothole-Detection\server\pothole_ui"
+cd /d "E:\ProjectFiles\Python\final\Pothole-Detection\server\pothole_ui"
 
 REM Activate the virtual environment if necessary
 call conda activate pothole

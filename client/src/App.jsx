@@ -12,6 +12,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   var [result, setResult] = useState([]);
   var [report, setReport] = useState([]);
+  var [area, setArea] = useState([]);
 
   const handleFileChange = (event) => {
     const fileList = event.target.files;
@@ -72,9 +73,9 @@ function App() {
       setdetectImages(false);
       setViewReport(true);
       setReport(response.report);
+      setArea(response.area)
     }
 
-    console.log(report);
   }
 
   async function detectedImages() {
@@ -164,7 +165,7 @@ function App() {
             >
               View Results
             </button>
-            <Modal data={report} />
+            <Modal data={report} area={area}/>
           </div>
         ) : (
           <div></div>
