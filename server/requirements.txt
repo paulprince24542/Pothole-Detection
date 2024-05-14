@@ -1,3 +1,5 @@
 opencv-python
 django
-ultralytics  
+ultralytics
+detect
+django-cors-headers
